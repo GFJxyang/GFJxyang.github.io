@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="设备终端              1.虚拟终端(tty：teletypewriters， /dev/tty# #为[1-6])              2.图形终端（ /dev/tty7 ） startx, xwindows 只是在登录的地点不同所以终端的名字也有所不同，但是都属于虚拟终端；可以支持好几个，不同的用户登录；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux基础命令">
+<meta property="og:url" content="http://yoursite.com/2018/10/06/Linux基础笔记/index.html">
+<meta property="og:site_name" content="CNM">
+<meta property="og:description" content="设备终端              1.虚拟终端(tty：teletypewriters， /dev/tty# #为[1-6])              2.图形终端（ /dev/tty7 ） startx, xwindows 只是在登录的地点不同所以终端的名字也有所不同，但是都属于虚拟终端；可以支持好几个，不同的用户登录；">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/06/Linux基础笔记/1.png">
+<meta property="og:updated_time" content="2018-11-16T07:51:37.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux基础命令">
+<meta name="twitter:description" content="设备终端              1.虚拟终端(tty：teletypewriters， /dev/tty# #为[1-6])              2.图形终端（ /dev/tty7 ） startx, xwindows 只是在登录的地点不同所以终端的名字也有所不同，但是都属于虚拟终端；可以支持好几个，不同的用户登录；">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/06/Linux基础笔记/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/06/Linux基础笔记/"/>
+
+
+
+
+
+  <title>linux基础命令 | CNM</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CNM</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">NDYD</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-mysql">
+          <a href="/categories/mysql" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            数据库
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-docker">
+          <a href="/categories/docker" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            容器
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/06/Linux基础笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CNM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">linux基础命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-06T19:37:42+08:00">
+                2018-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>设备终端<br>              1.虚拟终端(tty：teletypewriters， /dev/tty# #为[1-6])<br>              2.图形终端（ /dev/tty7 ） startx, xwindows</p>
+<p>只是在登录的地点不同所以终端的名字也有所不同，但是都属于虚拟终端；<br>可以支持好几个，不同的用户登录；<br><a id="more"></a></p>
+<p>chvt 切换身份    可以在图形界面进行身份的切换<br>                 例如：chvt 1是图像界面  chvt 2、3、4等属于字符界面<br>init 3 5 是在字符界面与图像界面中来回进行切换的。<br>     0 6 分别是关机与重启<br>halt：   关机     在centos6中能够正常使用<br>                  在centos7中不能够关机，只能是关机不下电；<br>poweroff 关机：   在centos6、7中都能够正常关机；</p>
+<p>strace command    查看系统调用；</p>
+<p>hostname  主机名的命名  在各公司的命名都有相应的规范，例如：web—nginx01.magedu.com </p>
+<p>cat /etc/centos-release   查看系统型号，发行版的名称；<br>lsb_release</p>
+<p>gedit属于图像话工具，在字符界面中没法打开。</p>
+<p>nano /etc/gdm/custom.conf 修改为自动启动，无需账号密码；注意：生产环境中严禁使用！！！！<br>            AutomaticLoginEnable=true<br>            AutomaticLogin=root       （注意root是选择账号，如果是普通的就选择普通账号名称。一点要注意大小写！）</p>
+<p>lscpu  查看电脑CPU型号  其中Flags  代表这个CPU的特殊功能</p>
+<p>dmesg            这个是列出机子中所有的硬件设施；例如网卡： dmesg ｜grep eth</p>
+<p>uname-r          内核版本</p>
+<p>free   -h        查看内存大小（默认是K为单位的，一般来说加“h”属于人类易读格式）</p>
+<p>lsblk            查看硬盘，光盘大小</p>
+<p>centos 默认两种用户 ：管理员（root） 普通用户（xiao）</p>
+<p>交互式接口：图形化用户接口GUI 基于X protocol 协议        CLI字符界面   </p>
+<p>shell程序：提供了Linux系统的用户界面，提供了用户和内核进行交互操作；shell是一种高级的语言，有很多种类，不同的<br>shell命令也不相同，通常使用/bin/shell   不同国家，shell的语言也不相同；</p>
+<p>echo $SHELL      查看当前使用的Shell</p>
+<p>cat /etc/shells  查看shell的种类</p>
+<p>sbin/nologin     不用登录的shell，非用户的shell</p>
+<p>pwd                显示当前目录   -P显示真是路径</p>
+<p>nano /etc/profile.d/env.sh   修改命令提示符的颜色，变量等</p>
+<p>建议存放地点：profile.d</p>
+<p>固定写法：PS1=”[\e[1;35m][\u@\h \W \t]\$[\e[0m]“</p>
+<p>echo $PS1         显示命令提示符等变量</p>
+<p>Linux里面如果想修改储存永久的，而非临时的就必须写入到文件当中！！</p>
+<p>PS1格式定义 ：U当前用户名<br>              W当前工作目录<br>              t时间12小时格式<br>              T时间24小时格式<br>              H主机名称（全）<br>              h主机名称（不全）<br>              示例：PS1=”\H \t—-&gt;[\u]”</p>
+<p>字体颜色：31–37  背景颜色41—47   闪烁是5   1属于高亮显示</p>
+<p>内部命令：在开机过程中已经在内部存放的命令；内部命令在SHELL中储存，不需要寻找<br>          严重依赖shell类型</p>
+<p>enable  当前shell中的内部命令</p>
+<p>echo $PATH  代表很多文件夹的集合，按照顺序去寻找</p>
+<p>外部命令：需要用户寻找 例如：cat命令  不用书写路径可以通过PATH变量进行寻找</p>
+<p>优先使用内部命令</p>
+<p>help   帮助说明</p>
+<p>例如：help echo  </p>
+<p>回车 换行 在LINUX中不是一样的，在windows中集成到一块了</p>
+<p>hexdump 显示16位数进制内容，通常可以现象一些看不见的符号</p>
+<p>echo意思为回显（返回显示信息）<br>“ ” 显示变量<br>‘ ’ 相对而言智能程度较低<br>· ·反向单引号 命令 变量都识别</p>
+<p>echo格式定义 ：-n不换行<br>               “\a”响铃<br>               -e配合响铃使用，要不然echo只能当字母显示出来，加上-e配合 \a响铃 （启用 \ 字符的解释功能）<br>               \n换到新行<br>               \0nnn后面跟着ascii编码，也就是说这里可以用ascii编码使用<br>               \r光回车不换行<br>               \c是换行<br>man  ascii  查看ascii编码</p>
+<p>unicode编码则是全世界编码，能够对应到全世界各个国家的语言；UTF-8 UTF-16</p>
+<p>enable格式定义： -n禁用命令 可以禁用多个命令   例如 enable -n help<br>                 -a显示所有命令（无论是禁用的还是没禁用的）<br>                  启用命令： 例如 enable help<br>                 -d删除名称</p>
+<p>type  能够显示命令属于内部命令还是外部命令；</p>
+<p>type格式定义： -a显示外部命令，所有的存放路径</p>
+<p>hash哈希值，内存中记录的 缓存  </p>
+<p>hash格式定义：-d删除被记录的路径<br>              -P定义一个新的名称<br>              -t显示出路径<br>              -r全部清空          </p>
+<p>命令的执行过程：别名、内部命令、缓存hash、外部命令</p>
+<p>命令如果同别名相同，就想用原始命令的话，可以通过\ ‘ ’ command 等进行解决<br>例如：\ls ‘ls’ command（是命令本身） ls</p>
+<p>别名：将较长的命令用短的进行代替就是别名<br>例如：alias aa=’cd /etc/sysconfig/network-scripts/‘<br>别名一般写入在.bashrc<br>unalias删除别名  -a属于全部删除</p>
+<p>如果对所有账号都能够使用你定义的别名则是 cat /etc/bashrc</p>
+<p>不同的命令，带有不同的选项 长选项更容易理解，短选项更容易记住</p>
+<p>命令+选项+参数 通常情况都是如此  例如：ls -i anaconda-ks.cfg<br><img src="/2018/10/06/Linux基础笔记/1.png" alt="1"><br>快捷键<br>ctrl+d属于正常退出（退出当前终端）<br>ctrl+c强行退出<br>ctrl+z刮起命令<br>ctrl+l清屏<br>ctrl+a行首<br>ctrl+e行尾<br>ctrl+u光标之前全部不要<br>ctrl+k光标之后全部不要<br>alt+r全部不要<br>alt+n 提示输入指定字符后，重复显示该字符N次</p>
+<p>将多条命令一块执行，必须加分号  例如： ls ；hostname ；$PATH<br>将命令分成多行写，加\  一般不推荐这么使用，除非很长；</p>
+<p>获得帮助的能力决定了技术的能力！！！！</p>
+<p>whatis主要是告诉我们一些简单命令的说明；例如：whatis rm</p>
+<p>但是whatis不是任何主机一开始就能执行的，要添加数据库才可以。在centos6中数据库建立命令：makewhatis<br>在centos7中则是mandb </p>
+<p>help能够了解内部命令的用法：help enable</p>
+<p>man能够查询所有命令问题的用法：man 1 enable   \向下搜索 ？向上搜素</p>
+<p>外部命令查看用法：命令–help  man命令</p>
+<p>whereis 查看man帮助命令所在的帮助文档</p>
+<p>cat /etc/man_db.conf查看man帮助存放路径</p>
+<p>man -k 模糊搜索</p>
+<p>date时间查询，分为系统时间和硬件时间。时间格式定义：属于月日小时分钟年秒；例如date 101520302019.20</p>
+<p>clock系统时间查询  -s同步硬件时间  -w同步系统时间</p>
+<p>ntpdate 172.16.0.1 这个是和外面服务器时间同步，但是这样做必须先保证服务器做好相关设置；</p>
+<p>date格式定义：-u或者–utc 显示英国格利尼日时间<br>              +%Y 显示年份<br>              +%m 显示月份<br>              +%d 显示日期<br>              +%F 统一显示出年月日<br>              +%H 显示小时<br>              +%M 显示分钟<br>              +%S 显示秒数<br>              +%T 统一显示小时分<br>              -d  描述 可以显示昨天的时间 例如； date -d ‘-1 day’   date -d ‘+1 day’ +%F<br>              -s  根据描述设置时间<br>              -f  按照时间字符串描述进行批量处理</p>
+<p>LS 列出目录内容<br>ls格式定义：  -a显示全部文件（包括隐藏文件）<br>              -A不去显示.和..<br>              -R递归 列出子目录下的文件<br>              -l显示详细信息<br>              -d只列出文件夹本身<br>              -1文件分行显示（竖着显示，一行一个文件）<br>              -S文件的大小排序（从大到小排序）<br>              -r反转从小到达排序<br>              -U文件的排放次序（谁先 建立放到前面）<br>              -X后缀显示</p>
+<p>issue预登录消息，登陆前提示的消息：<br>                     nano /etc/issue  cat /etc/issue<br>motd登录后提示消息： nano /etc/motd   cat /etc/motd</p>
+<p>will广播可以进行发通知： 例如：will ”System will shutdown at 18:30”</p>
+<p>cd /usr/share/doc 这个目录里面存放很多的软件，可以通过进入文件夹进行学习；大部分都是文档</p>
+<p>sosreport 向红帽进行技术支持</p>
+<p>timedatectl list-timezones 列出已经支持的时区   centos6不支持<br>timedatectl set-timezone <strong>___</strong> （设置时区____填写出你要设置的时区）</p>
+<p>ll /etc/localtime 查看系统对应的时区</p>
+<p>cal 日历  cal 2019  显示当年日历cal -y</p>
+<p>shutdown关机<br>shutdown格式定义：-r重启<br>                  -c取消关机<br>                  now立即关机<br>who 谁在我的系统，在那个终端，时间等<br>w    可以知道用户在做什么，干什么操作<br>whoami 查询自己的状态，是root还是普通用户<br>who am i 查询自己当前系统登录时间等<br>runlevel 查询自己当前所在那个模式，3还是5</p>
+<p>rpm -ivh 安装软件</p>
+<p>screen互相帮助必须是两个人连着同一个机器   重大操作，时间较旧的操作建议先执行screen<br>格式定义：-S开启回话（注意必须是大写S）<br>          -x加入回话<br>          -ls显示所有已经打开的回话<br>临时脱离回话：ctrl+a，d</p>
+<p> $()与反向单引号效果相当</p>
+<p> ｛｝实现组合  例如         echo file{1…3}，echo file{1…3}.{txt.log}<br>               输出结果：   file1.txt file1.log file2.txt file2.log file3.txt file3.log</p>
+<p>rpm -qa bash* 查找软件包的名称<br>在生产中没有tab键补全，所以需要安装bash-4.246-30.e17.x86_64   bash-completion-2.1-6.e17.noarch安装包</p>
+<p>nmcli 配置网络的工具</p>
+<p>history 历史记录，不连续是挨着记录，注销后历史记录依然存在；</p>
+<p>.bash_history是存放history命令历史的记录表，但是不会及时更新，只有在注销或者重新后才能将历史记录<br>写道.bash_history中（注意必须是正常的注销，重启，关机才行。）<br>先删文件<br>再请历史<br>在离开</p>
+<p>history格式定义：！表示历史命令的序号   例如：！27<br>                 -c清除历史列表所有条目 （只能清除内存历史，不能清除条目历史）<br>                 -d删除第几个命令  例如：history -d 67<br>                 n就是列出最近的几条： 例如history -n 10 （10代表最近的10条）<br>                 -a追加历史       （就是将内存中存放的历史，追加到文件中）<br>                 -r反过来追加      （就是将磁盘中的历史文件，追加到内存当中）<br>                 -w将历史存放到新的文件中<br>                 -p 执行参数，但是不去保存<br>                 -s 保存参数到历史列表中，但是不执行</p>
+<pre><code>向上的方向键  ：调用历史命令
+！：0    只执行参数
+！u  表示已u开头最近的命令（可以自己根据情况 例如r之类的）
+！？rm  表示包含带rm的命令
+</code></pre><p>录像命令<br>开始script -t 2&gt; time.log -a cmd.session<br>结束exit<br>播放<br>scriptreplay time.log  cmd.session </p>
+<p>PATH PS1 USER HOSTNAME SHELL UID 全部属于系统自带的变量 显示就加echo 如果需要调用就得加$</p>
+<p>HISTSIZE 历史的变量 显示历史存放的最多数量<br>HISTFILE 显示历史存放的位置<br>HISTFILESIZE：命令历史文件记录历史的条数<br>如果不想记录历史，或者说是觉得1000条太少了，可以在vim /etc/profile中修改</p>
+<p>历史格式修改：HISTTIMEFORMAT=“%F %T “ 显示时间<br>HISTIGNORE=“str1:str2*:… “ 忽略str1命令，str2开头的历史  例如 HISTIGNORE=ls<br>环境变量：HISTCONTROL<br>                      ignoredups 默认，忽略重复的命令，连续且相同为“重复”<br>                      ignorespace 忽略所有以空白开头的命令<br>                      ignoreboth 相当于ignoredups, ignorespace的组合</p>
+<p>erasedups 删除重复命令（不管连着还是不连着）<br><br>export 变量名=”值“<br><br>存放在 /etc/profile 或 ~/.bash_profile</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/06/你好，Hexo/" rel="next" title="你好，Hexo">
+                <i class="fa fa-chevron-left"></i> 你好，Hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/15/我的第一篇文章/" rel="prev" title="我的第一篇文章">
+                我的第一篇文章 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
